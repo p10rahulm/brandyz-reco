@@ -57,14 +57,15 @@ def get_user_purchase_deets(shoppers,brands,):
     return shopper_brand_matrix
 
 
-def get_product_co_purchase_matrix(shoppers, brands):
-    num_brands = len(brands)
+def get_product_co_purchase_matrix(shoppers,numshoppers, brands,num_brands):
     brand_copurchase_matrix = np.zeros((num_brands,num_brands),dtype = np.int8)
     i=0;
     while i < len(shoppers):
         j = 1
         while shoppers[i+j] == shoppers[i]:
             brand_copurchase_matrix[brands[i],brands[i+j]] +=1
+            j+=1
+        i+=1
     return brand_copurchase_matrix
 
 if __name__ == "__main__":
@@ -76,11 +77,13 @@ if __name__ == "__main__":
         encode_shoppers_brands(shopping_profile_id, brand_id)
     print("encoding done")
     shopper_brand_matrix = get_user_purchase_matrix(shoppers,num_shoppers, brands,num_brands)
-    print("encoding done")
-    brand_copurchase_matrix = get_product_co_purchase_matrix(shoppers,brands)
-    print("brand_copurchase_matrix[0][0]")
-    print(brand_copurchase_matrix[0][0])
+    print("shopper brand matrix")
     print(shopper_brand_matrix[0])
+    del shopper_brand_matrix
+    brand_copurchase_matrix = get_product_co_purchase_matrix(shoppers,num_shoppers,brands,num_brands)
+    print("brand_copurchase_matrix[0]")
+    print(brand_copurchase_matrix[0])
+
     # np.savetxt("output/shopper_brand_matrix.txt",shopper_brand_matrix)
 
 
