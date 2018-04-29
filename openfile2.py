@@ -5,13 +5,22 @@ def openfile_returnlist(filename):
         lines = f.readlines()
     return lines,len(lines)
 
-def lines_operations(list_of_lines,list_length):
-    shopping_profile_id = np.zeros((list_length), dtype=int)
-    brand_id = np.zeros((list_length), dtype=int)
-    for line in list_of_lines:
-        g = line.split("\t")
+def data_operations(list_of_lines,list_length):
+    shopping_profile_id = np.zeros((list_length-1), dtype=int)
+    brand_id = np.zeros((list_length-1), dtype=int)
+    id_brand_mapping = {}
+    for line_number in range(1,list_length):
+        g = list_of_lines[line_number].split('\t')
+        shopping_profile_id[line_number-1] = int(g[0])
+        brand_id[line_number-1] = int(g[1])
+        id_brand_mapping[brand_id[line_number-1]]=g[2].rstrip('\n')
+    return (shopping_profile_id,brand_id,id_brand_mapping)
 
 if __name__ == "__main__":
-    (mylist,listlength) = openfile_returnlist("data/brands_filtered.txt")
-    print(mylist[0:2])
-    print(listlength)
+    (brands_preference_lines,brands_preference_listlength) = openfile_returnlist("data/brands_filtered.txt")
+    print(brands_preference_lines[0:2])
+    print(brands_preference_listlength)
+    (shopping_profile_id, brand_id, id_brand_mapping) = data_operations(brands_preference_lines, brands_preference_listlength)
+    print(shopping_profile_id[0:3])
+    print(brand_id[0:3])
+    print(id_brand_mapping[51])
