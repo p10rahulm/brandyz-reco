@@ -3,6 +3,7 @@
 
 # data
 data/brands_filtered.txt
+output/
 
 # User-specific stuff
 .idea/**/workspace.xml

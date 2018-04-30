@@ -3,11 +3,11 @@ import numpy as np
 def get_encoder_dict(column):
     encodings = {}
     unique_col = np.unique(column)
-    code = 0;
+    uniq_counter = 0;
     for num in unique_col:
-        encodings[num] = code;
-        code+=1;
-    return (encodings,code)
+        encodings[num] = uniq_counter;
+        uniq_counter+=1;
+    return (encodings,uniq_counter)
 
 
 def encode_column(column,encodings):
