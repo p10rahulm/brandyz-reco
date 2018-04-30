@@ -13,5 +13,11 @@ def get_user_purchase_deets(shoppers,brands):
             num_transactions+=1
             transactions_list.append(brands[end_row])
             end_row+=1
+        transactions_list = transactions_list.sort()
         user_deets.append((num_transactions,start_row,end_row,transactions_list))
     return user_deets
+
+if __name__== "__main__":
+    customers = [0,0,1,1,1,2,2,2,2]
+    purchases = [0,3,5,1,2,4,1,3,5]
+    print(get_user_purchase_deets(customers, purchases))
