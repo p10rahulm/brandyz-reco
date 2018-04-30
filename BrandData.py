@@ -54,9 +54,15 @@ if __name__ == "__main__":
     print("getting brand_wise details")
     brand_deets = BrandDetails.get_brand_purchase_deets(shoppers, brands)
     print("Add brand tags to brand details")
+    # Add categories
     brand_deets = AddBrandTags.add_random_categories(brand_deets)
+    # Add some ordinal scale
     brand_deets = AddBrandTags.add_random_ordinal_scale(brand_deets)
+    # Add percentile tag
     brand_deets = AddBrandTags.get_percentile_tags(brand_deets)
+    # Even though it has not been mentioned whether the data has been ordered time-stamp wise, if we assume it has been,
+    # we can add a value tag - how many times has this brand been the first purchase of user
+    brand_deets = AddBrandTags.first_purchase(brand_deets,shoppers, brands)
 
     print("write brand_details to file")
     WriteListtoFile.write_file('output/brand_details.txt', brand_deets)
