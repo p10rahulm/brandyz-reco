@@ -3,7 +3,7 @@ import numpy as np
 def get_copurchase_list(user_details):
     copurchase_list = []
     for user in user_details:
-        purchases = user[4]
+        purchases = user[5]
         i=0
         while i < len(purchases):
             j =i+1

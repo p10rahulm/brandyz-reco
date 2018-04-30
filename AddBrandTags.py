@@ -57,13 +57,16 @@ def get_percentile_tags(brand_dataframe):
     return out
 
 def first_purchase(brand_dataframe,shoppers,brands):
-
     num_brands=len(brand_dataframe)
-    brandwise_num_purchases =np.zeros((num_brands,1),dtype = np.int32)
-    for i in range(num_brands):
-        brandwise_num_purchases[i] = brand_dataframe[i][1]
-    percentile_tags = PercentileTags.get_percentiles(brandwise_num_purchases)
+    brandwise_first_purchases =np.zeros(num_brands,dtype = np.int32)
+    # Using the first row as special case
+    brandwise_first_purchases[brands[0]] += 1
+    # Below gets required in single pass, ie. O(n)
+    for i  in range(1,len(shoppers)):
+        if(shoppers[i]!=shoppers[i-1]):
+            brandwise_first_purchases[brands[i]]+=1
+    # since tuples cannot be changed (appended to), we need to do this additional step
     out = []
     for i in range(len(brand_dataframe)):
-        out.append((brand_dataframe[i][0], brand_dataframe[i][1], brand_dataframe[i][2], brand_dataframe[i][3], percentile_tags[i], brand_dataframe[i][4]))
+        out.append((brand_dataframe[i][0], brand_dataframe[i][1], brand_dataframe[i][2], brand_dataframe[i][3], brand_dataframe[i][4], brandwise_first_purchases[i], brand_dataframe[i][5]))
     return out
