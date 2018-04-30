@@ -52,36 +52,38 @@ def partition(listA,indexstart,indexend):
 
     swap(listA,indexstart,indexLeft-1)
     return indexLeft-1
-    '''
-    # Below uses while loop instead of for loop in partition
-    def partition(listA,indexstart,indexend):
-        randomtofirst(listA,indexstart,indexend)
-        pivotvalue = listA[indexstart]
-        indexLeft = indexstart+1
-        indexRight = indexend
-        done = False
-        while not done:
-            while indexLeft <= indexRight and listA[indexLeft] <= pivotvalue:
-                indexLeft = indexLeft + 1
-            while listA[indexRight] >= pivotvalue and indexRight >= indexLeft:
-                indexRight = indexRight -1
-            if indexRight < indexLeft:
-                done = True
-            else:
-                temp = listA[indexLeft]
-                listA[indexLeft] = listA[indexRight]
-                listA[indexRight] = temp
-
-        temp = listA[indexstart]
-        listA[indexstart] = listA[indexRight]
-        listA[indexRight] = temp
 
 
-        return indexRight
-    '''
+
+'''
+# Below uses while loop instead of for loop in partition
+def partition(listA,indexstart,indexend):
+    randomtofirst(listA,indexstart,indexend)
+    pivotvalue = listA[indexstart]
+    indexLeft = indexstart+1
+    indexRight = indexend
+    done = False
+    while not done:
+        while indexLeft <= indexRight and listA[indexLeft] <= pivotvalue:
+            indexLeft = indexLeft + 1
+        while listA[indexRight] >= pivotvalue and indexRight >= indexLeft:
+            indexRight = indexRight -1
+        if indexRight < indexLeft:
+            done = True
+        else:
+            temp = listA[indexLeft]
+            listA[indexLeft] = listA[indexRight]
+            listA[indexRight] = temp
+
+    temp = listA[indexstart]
+    listA[indexstart] = listA[indexRight]
+    listA[indexRight] = temp
+
+
+    return indexRight
+'''
 
 if __name__ == "__main__":
-
     listA = [54,26,93,17,77,31,44,55,20]
     quicksort(listA)
     print(listA)
