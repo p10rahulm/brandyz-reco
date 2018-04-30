@@ -1,5 +1,6 @@
 import Openfile,ConverttoFactor,WriteListtoFile
 import numpy as np
+import time
 
 
 def get_data(filename):
@@ -41,22 +42,27 @@ def get_user_purchase_deets(shoppers,num_uniq_shoppers,brands):
 
 
 
-def get_copurchase_list(shoppers, brands,num_brands):
-    print(shoppers[1:100])
+def get_copurchase_list(user_details):
+    copurchase_list = []
+    for user in user_details:
+        purchases = user[3]
+        i=0
+        while i < len(purchases):
+            j =i+1
+            while j<len(purchases):
+                copurchase_list.append((purchases[i],purchases[j]))
+                j+=1
+            i+=1
+    return(copurchase_list)
 
 
 
-def get_product_co_purchase_matrix(user_details):
-    brand_copurchase_matrix = np.zeros((num_brands,num_brands),dtype = np.int8)
-    i=0;
-    while i < len(shoppers):
-        j = 1
-        while shoppers[i+j] == shoppers[i]:
-            brand_copurchase_matrix[brands[i],brands[i+j]] +=1
-            j+=1
-        i+=1
-        if(i%10000==0):
-            print(i)
+
+def get_product_co_purchase_matrix(copurchase_list,num_brands):
+    brand_copurchase_matrix = np.zeros((num_brands,num_brands),dtype = np.uint32)
+    # i want lower triangular matrix, so switching sides
+    for coincidence in copurchase_list:
+        brand_copurchase_matrix[coincidence[1],coincidence[0]]+=1
     return brand_copurchase_matrix
 
 '''
@@ -76,7 +82,7 @@ def get_product_co_purchase_matrix_old(shoppers,brands,num_brands):
 '''
 
 if __name__ == "__main__":
-
+    timestart = time.time()
     print("getting data")
     (shopping_profile_id, brand_id, id_brand_mapping) = get_data("data/brands_filtered.txt")
     print("data obtained: sample results below:- ")
@@ -93,6 +99,7 @@ if __name__ == "__main__":
     print("first 100 brand 1ds: ", brands[0:100])
     print("brand_code_mapping[51] : ", brands_dictionary[51])
     print("---------------------")
+
     '''
     print("getting brand matrix")
     shopper_brand_matrix = get_user_purchase_matrix(shoppers, num_uniq_shoppers, brands, num_uniq_brands)
@@ -100,11 +107,27 @@ if __name__ == "__main__":
     print(shopper_brand_matrix[0])
     del shopper_brand_matrix
     '''
+
     print("getting user_wise details")
     user_deets = get_user_purchase_deets(shoppers, num_uniq_shoppers, brands)
+    print("write userdetails to file")
     WriteListtoFile.write_file('output/user_details.txt',user_deets)
     print("user_deets[0:5]")
     print(user_deets[0:5])
+
+
+    print("get_copurchase list")
+    copurchase_list = get_copurchase_list(user_deets)
+    print("len(copurchase_list)=",len(copurchase_list))
+
+    print("get_copurchase matrix")
+    copurchase_matrix = get_product_co_purchase_matrix(copurchase_list, num_uniq_brands)
+    print("save to file")
+    np.savetxt("output/copurchase_matrix.csv",copurchase_matrix, delimiter=",", fmt="%6d")
+
+    print("Done! Time taken = ", time.time() - timestart)
+
+
 
 
 
