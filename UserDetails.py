@@ -2,7 +2,7 @@ import Quicksort
 
 def get_user_purchase_deets(shoppers,brands):
     # we shall get deets: total_num_transactions, start_row, end_row, brands as a list
-    # add more if you find more
+    # add more deets if you need more
     user_deets = []
     end_row = 0
     total_transactions = len(shoppers)

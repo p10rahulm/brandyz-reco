@@ -37,3 +37,13 @@ def get_product_co_purchase_matrix(copurchase_list,num_brands):
     for coincidence in copurchase_list:
         brand_copurchase_matrix[coincidence[1],coincidence[0]]+=1
     return brand_copurchase_matrix
+
+if __name__== "__main__":
+    customers = [0,0,1,1,1,2,2,2,2]
+    purchases = [0,3,5,1,2,4,1,3,5]
+    from UserDetails import get_user_purchase_deets
+    customer_wise_purchase_details = get_user_purchase_deets(customers, purchases)
+    coprch_list = get_copurchase_list(customer_wise_purchase_details)
+    copurch_matrix = get_product_co_purchase_matrix(coprch_list,len(np.unique(purchases)))
+    print("coprch_list = ",coprch_list)
+    print("copurch_matrix = ", copurch_matrix)
