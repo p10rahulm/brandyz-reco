@@ -1,4 +1,4 @@
-import Openfile,ConverttoFactor,WriteListtoFile,UserBrandPurchaseMatrix,ProductCopurchase,UserDetails
+import Openfile,ConverttoFactor,WriteListtoFile,UserBrandPurchaseMatrix,ProductCopurchase,UserDetails, BrandDetails
 import numpy as np
 import time
 
@@ -44,18 +44,18 @@ if __name__ == "__main__":
 
 
     print("getting user_wise details")
-    user_deets = UserDetails.get_user_purchase_deets(shoppers, num_uniq_shoppers, brands)
+    user_deets = UserDetails.get_user_purchase_deets(shoppers, brands)
     print("write userdetails to file")
     WriteListtoFile.write_file('output/user_details.txt',user_deets)
     print("user_deets[0:5]")
     print(user_deets[0:5])
 
     print("getting brand_wise details")
-    brand_deets = get_brand_purchase_deets(shoppers, brands,num_uniq_brands)
+    brand_deets = BrandDetails.get_brand_purchase_deets(shoppers, brands)
     print("write brand_details to file")
-    WriteListtoFile.write_file('output/user_details.txt', user_deets)
-    print("user_deets[0:5]")
-    print(user_deets[0:5])
+    WriteListtoFile.write_file('output/brand_details.txt', brand_deets)
+    print("brand_deets[0:5]")
+    print(brand_deets[0:5])
 
     print("get_copurchase list")
     copurchase_list = ProductCopurchase.get_copurchase_list(user_deets)

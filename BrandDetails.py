@@ -1,6 +1,8 @@
 # In this module we will get the brand count and the users per brand as a list.
 # Add more details as deemed necessary
-import Quicksort
+
+# I'm using mergesort here instead of quicksort as the size of data is much larger than for users
+import Mergesort
 
 def get_brand_purchase_deets(shoppers,brands):
     # below we are sorting by brand rather than by shoppers
@@ -22,7 +24,7 @@ def get_brand_purchase_deets(shoppers,brands):
             num_transactions += 1
             users_list.append(shoppers_sorted[end_row])
             end_row += 1
-        Quicksort.quicksort(users_list)
+            users_list = Mergesort.mergesorts(users_list)
         brand_deets.append((num_transactions, users_list))
     return brand_deets
 
