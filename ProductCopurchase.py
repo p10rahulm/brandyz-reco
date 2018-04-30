@@ -3,7 +3,7 @@ import numpy as np
 def get_copurchase_list(user_details):
     copurchase_list = []
     for user in user_details:
-        purchases = user[3]
+        purchases = user[4]
         i=0
         while i < len(purchases):
             j =i+1
@@ -33,9 +33,15 @@ def get_product_co_purchase_matrix_old(shoppers,brands,num_brands):
 
 def get_product_co_purchase_matrix(copurchase_list,num_brands):
     brand_copurchase_matrix = np.zeros((num_brands,num_brands),dtype = np.uint32)
-    # i want lower triangular matrix, so switching sides
     for coincidence in copurchase_list:
+        # below corresponds to upper triangular matrix, since the copurchase list is sorted such
+        # brand_copurchase_matrix[coincidence[0], coincidence[1]] += 1
+        # Instead of using that, i can simply use numpy transpose addition.
+
+        # below corresponds to lower triangular matrix
         brand_copurchase_matrix[coincidence[1],coincidence[0]]+=1
+    brand_copurchase_matrix = brand_copurchase_matrix.T + brand_copurchase_matrix
+    # we get a symmetric matrix
     return brand_copurchase_matrix
 
 if __name__== "__main__":

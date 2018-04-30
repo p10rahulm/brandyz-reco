@@ -1,4 +1,5 @@
 import Quicksort
+# using quicksort here as it has small overhead and each user only has a small number of transactions
 
 def get_user_purchase_deets(shoppers,brands):
     # we shall get deets: total_num_transactions, start_row, end_row, brands as a list
@@ -16,7 +17,7 @@ def get_user_purchase_deets(shoppers,brands):
             transactions_list.append(brands[end_row])
             end_row+=1
         Quicksort.quicksort(transactions_list)
-        user_deets.append((num_transactions,start_row,end_row,transactions_list))
+        user_deets.append((start_user,num_transactions,start_row,end_row,transactions_list))
     return user_deets
 
 if __name__== "__main__":

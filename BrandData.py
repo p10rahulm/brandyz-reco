@@ -1,4 +1,4 @@
-import Openfile,ConverttoFactor,WriteListtoFile,UserBrandPurchaseMatrix,ProductCopurchase,UserDetails, BrandDetails
+import Openfile,ConverttoFactor,WriteListtoFile,UserBrandPurchaseMatrix,ProductCopurchase,UserDetails, BrandDetails,AddBrandTags,AddUserTags
 import numpy as np
 import time
 
@@ -40,11 +40,12 @@ if __name__ == "__main__":
     shopper_brand_matrix = UserBrandPurchaseMatrix.get_user_purchase_matrix(shoppers, num_uniq_shoppers, brands, num_uniq_brands)
     print("sparse purchase matrix obtained: first row below:- ")
     print(shopper_brand_matrix[0])
-    shopper_brand_matrix
 
 
     print("getting user_wise details")
     user_deets = UserDetails.get_user_purchase_deets(shoppers, brands)
+    print("Add user tags to user details")
+    user_deets = AddUserTags.get_percentile_tags(user_deets)
     print("write userdetails to file")
     WriteListtoFile.write_file('output/user_details.txt',user_deets)
     print("user_deets[0:5]")
@@ -52,6 +53,11 @@ if __name__ == "__main__":
 
     print("getting brand_wise details")
     brand_deets = BrandDetails.get_brand_purchase_deets(shoppers, brands)
+    print("Add brand tags to brand details")
+    brand_deets = AddBrandTags.add_random_categories(brand_deets)
+    brand_deets = AddBrandTags.add_random_ordinal_scale(brand_deets)
+    brand_deets = AddBrandTags.get_percentile_tags(brand_deets)
+
     print("write brand_details to file")
     WriteListtoFile.write_file('output/brand_details.txt', brand_deets)
     print("brand_deets[0:5]")
@@ -65,7 +71,7 @@ if __name__ == "__main__":
     copurchase_matrix = ProductCopurchase.get_product_co_purchase_matrix(copurchase_list, num_uniq_brands)
 
     print("save to file")
-    np.savetxt("output/copurchase_matrix.csv",copurchase_matrix, delimiter=",", fmt="%6d")
+    np.savetxt("output/copurchase_matrix.txt",copurchase_matrix, delimiter=",", fmt="%6d")
 
     print("Done! Time taken = ", time.time() - timestart)
 

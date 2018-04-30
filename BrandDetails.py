@@ -24,8 +24,8 @@ def get_brand_purchase_deets(shoppers,brands):
             num_transactions += 1
             users_list.append(shoppers_sorted[end_row])
             end_row += 1
-            users_list = Mergesort.mergesorts(users_list)
-        brand_deets.append((num_transactions, users_list))
+        users_list = Mergesort.mergesorts(users_list)
+        brand_deets.append((start_brand, num_transactions, users_list))
     return brand_deets
 
 if __name__== "__main__":
