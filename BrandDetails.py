@@ -9,7 +9,7 @@ def get_brand_purchase_deets(shoppers,brands):
     brand_sorted = [brands for brands, shoppers in brand_shoppers]
     shoppers_sorted = [shoppers for brands, shoppers in brand_shoppers]
 
-
+    # Creating Brand Details
     brand_deets = []
     end_row = 0
     total_transactions = len(brands)
