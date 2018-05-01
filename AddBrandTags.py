@@ -29,6 +29,22 @@ import BrandDetails
 import random,numpy as np
 import PercentileTags
 
+
+def add_names(brand_dataframe,code_name_dictionary):
+    num_elements = brand_dataframe["meta"]["size"]
+    brand_codes = brand_dataframe["brand_code"]
+    names = np.empty(num_elements, dtype='U20')
+    for i in range(num_elements):
+        brand_code = brand_codes[i]
+        names[i] = code_name_dictionary[brand_code]
+    brand_dataframe["brand_name"] = names
+    brand_dataframe["meta"]["num_columns"] += 1
+    brand_dataframe["meta"]["column_type_list"].append(("brand_name", 'U20'))
+    return brand_dataframe
+
+
+
+
 def add_random_categories(brand_dataframe):
     num_elements = brand_dataframe["meta"]["size"]
     category_list = np.zeros(num_elements,dtype=np.int8)
@@ -36,7 +52,7 @@ def add_random_categories(brand_dataframe):
         category_list[i] = random.randint(0,4)
     brand_dataframe["category"] = category_list
     brand_dataframe["meta"]["num_columns"] += 1
-    brand_dataframe["meta"]["column_type_list"].append(("category", np.int8))
+    brand_dataframe["meta"]["column_type_list"].append(("category", 'int8'))
     return brand_dataframe
 
 
@@ -47,7 +63,7 @@ def add_random_ordinal_scale(brand_dataframe):
         ordinal_list[i] = random.randint(0, 4)
     brand_dataframe["ordinal_scale"] = ordinal_list
     brand_dataframe["meta"]["num_columns"] += 1
-    brand_dataframe["meta"]["column_type_list"].append(("ordinal_scale", np.int8))
+    brand_dataframe["meta"]["column_type_list"].append(("ordinal_scale", 'int8'))
     return brand_dataframe
 
 
@@ -56,7 +72,7 @@ def get_percentile_tags(brand_dataframe):
     percentile_tags = PercentileTags.get_percentiles(brandwise_num_purchases)
     brand_dataframe["percentile_tag"] = percentile_tags
     brand_dataframe["meta"]["num_columns"] += 1
-    brand_dataframe["meta"]["column_type_list"].append(("percentile_tag", np.int8))
+    brand_dataframe["meta"]["column_type_list"].append(("percentile_tag", 'int8'))
     return brand_dataframe
 
 def first_purchase(brand_dataframe,shoppers,brands):
@@ -70,7 +86,7 @@ def first_purchase(brand_dataframe,shoppers,brands):
             brandwise_first_purchases[brands[i]]+=1
     brand_dataframe["first_purchases"] = brandwise_first_purchases
     brand_dataframe["meta"]["num_columns"]+=1
-    brand_dataframe["meta"]["column_type_list"].append(("first_purchases", np.int32))
+    brand_dataframe["meta"]["column_type_list"].append(("first_purchases", 'int32'))
     return brand_dataframe
 
 if __name__== "__main__":

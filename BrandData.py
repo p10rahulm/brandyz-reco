@@ -27,21 +27,27 @@ if __name__ == "__main__":
     print("---------------------")
 
 
-    (shoppers,shopper_code_dictionary,num_uniq_shoppers,brands,brands_dictionary,num_uniq_brands) =\
+    (shoppers,shopper_code_dictionary,num_uniq_shoppers,brands,brand_id_code_dictionary,num_uniq_brands) =\
         encode_transactions(shopping_profile_id, brand_id)
     print("encoding done: encoded results below:- ")
     print("first 100 shopper details : ", shoppers[0:100])
     print("first 100 brand 1ds: ", brands[0:100])
-    print("brand_code_mapping[51] : ", brands_dictionary[51])
+    print("brand_id_code_mapping[51] : ", brand_id_code_dictionary[51])
+    # we need to reverse this dictionary to get the brand id from code
+    brand_code_id_dictionary = {code: id for id, code in brand_id_code_dictionary.items()}
+    brand_code_name_dictionary = {code: id_brand_mapping[id] for code, id in brand_code_id_dictionary.items()}
+    print("brand_code_id_mapping[38] : ", brand_code_id_dictionary[38])
+    print("brand_code_name_mapping[38] : ", id_brand_mapping[brand_code_id_dictionary[38]])
+    print("brand_code_name_mapping[38] : ", brand_code_name_dictionary[38])
     print("---------------------")
 
-
+    '''
     print("getting brand matrix")
     shopper_brand_matrix = UserBrandPurchaseMatrix.get_user_purchase_matrix(shoppers, num_uniq_shoppers, brands, num_uniq_brands)
     print("sparse purchase matrix obtained: first row below:- ")
     print(shopper_brand_matrix[0])
-
-
+    
+    
     print("getting user_wise details")
     user_deets = UserDetails.get_user_purchase_deets(shoppers, brands)
     print("Add user tags to user details")
@@ -50,9 +56,11 @@ if __name__ == "__main__":
     WritetoFile.write_df_to_file('output/user_details.txt', user_deets)
     print("user_deets[meta]")
     print(user_deets["meta"])
+    '''
 
     print("getting brand_wise details")
     brand_deets = BrandDetails.get_brand_purchase_deets(shoppers, brands)
+    brand_deets = AddBrandTags.add_names(brand_deets,brand_code_name_dictionary)
     print("Add brand tags to brand details")
     # Add categories
     brand_deets = AddBrandTags.add_random_categories(brand_deets)
@@ -69,7 +77,7 @@ if __name__ == "__main__":
     print("brand_deets[meta]")
     print(brand_deets["meta"])
 
-
+    '''
     print("get_copurchase list")
     copurchase_list = ProductCopurchase.get_copurchase_list(user_deets)
     print("len(copurchase_list)=",len(copurchase_list))
@@ -79,8 +87,12 @@ if __name__ == "__main__":
 
     print("save to file")
     np.savetxt("output/copurchase_matrix.txt",copurchase_matrix, delimiter=",", fmt="%6d")
+    '''
+
 
     print("Done! Time taken = ", time.time() - timestart)
+
+
 
 
 

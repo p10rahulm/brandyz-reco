@@ -1,4 +1,4 @@
-import numpy as np
+import numpy as np,re
 
 def openfile_returnlist(filename):
     with open(filename) as f:
@@ -14,7 +14,10 @@ def data_operations(list_of_lines):
         g = list_of_lines[line_number].split('\t')
         shopping_profile_id[line_number-1] = int(g[0])
         brand_id[line_number-1] = int(g[1])
-        id_brand_mapping[brand_id[line_number-1]]=g[2].rstrip('\n')
+        # I'm using re.sub to remove all non ascii stuff. This is for easier usage later.
+        # id_brand_mapping[brand_id[line_number-1]]=re.sub(r'[^\x00-\x7f]',r' ',g[2]).rstrip('\n')
+        # Making even more stringent
+        id_brand_mapping[brand_id[line_number - 1]] = re.sub(r'[^A-Za-z0-9\s]', r'', g[2]).rstrip('\n')
     return (shopping_profile_id,brand_id,id_brand_mapping)
 
 if __name__ == "__main__":

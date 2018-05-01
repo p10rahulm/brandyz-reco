@@ -16,10 +16,9 @@ def write_df_to_file(filename,data_container):
     print("columns:", num_cols, file=outfile)
     print("--columns--", file=outfile)
     for item in data_container["meta"]["column_type_list"]:
-        (key, value) = item
+        key, value = item
         col_names.append(key)
-        print(key,",",file=outfile, end="")
-        print(value,file=outfile)
+        print(key,",",value,file=outfile,sep="")
     columns = []
     for col_name in col_names:
         columns.append(data_container[col_name])

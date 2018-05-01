@@ -44,11 +44,11 @@ def get_user_purchase_deets(shoppers,brands):
     user_deets["list_of_transactions"] = list_of_transactions
     user_deets["meta"] = {"size": len(num_transactions_list),
                           "num_columns": 5,
-                          "column_type_list": [("user_id",np.int),
-                                               ("num_transactions",np.int16),
-                                               ("start_row",np.int32),
-                                               ("end_row",np.int32),
-                                               ("list_of_transactions",list)]}
+                          "column_type_list": [("user_id",'int'),
+                                               ("num_transactions",'int16'),
+                                               ("start_row",'int32'),
+                                               ("end_row",'int32'),
+                                               ("list_of_transactions",'list')]}
 
     return user_deets
 

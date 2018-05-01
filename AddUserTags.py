@@ -10,7 +10,7 @@ def get_percentile_tags(user_dataframe):
     percentile_tags = PercentileTags.get_percentiles(userwise_num_purchases)
     user_dataframe["percentile_tag"] = percentile_tags
     user_dataframe["meta"]["num_columns"] += 1
-    user_dataframe["meta"]["column_type_list"].append(("percentile_tag",np.int8))
+    user_dataframe["meta"]["column_type_list"].append(("percentile_tag",'int8'))
     return user_dataframe
 
 
