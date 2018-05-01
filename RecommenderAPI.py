@@ -45,6 +45,11 @@ def reco_showcase(brand_df):
         list_of_recos = list_of_recos + reco_best_of_category(brand_df,category,2)
     return list_of_recos
 
+
+# Get recommendation based on product: Here we will use just the most
+def product_based_reco(brand_df,product_id):
+    return
+
 if __name__ == "__main__":
     brand_df = ReadDBFile.read_simple_db("output/brand_details.txt")
     print(reco_new_user(brand_df))
