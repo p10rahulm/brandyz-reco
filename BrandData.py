@@ -57,7 +57,7 @@ if __name__ == "__main__":
     print("user_deets[meta]")
     print(user_deets["meta"])
 
-
+    '''
     print("getting brand_wise details")
     brand_deets = BrandDetails.get_brand_purchase_deets(shoppers, brands)
     brand_deets = AddBrandTags.add_names(brand_deets,brand_code_name_dictionary)
@@ -85,8 +85,9 @@ if __name__ == "__main__":
     copurchase_matrix = ProductCopurchase.get_product_co_purchase_matrix(copurchase_list, num_uniq_brands)
 
     print("save to file")
-    np.savetxt("output/copurchase_matrix.txt",copurchase_matrix, delimiter=",", fmt="%6d")
-    '''
+    np.save("output/copurchase_matrix.txt",copurchase_matrix,allow_pickle=True)
+    # np.savetxt("output/copurchase_matrix.txt",copurchase_matrix, delimiter=",", fmt="%6d")
+
 
 
     print("Done! Time taken = ", time.time() - timestart)
