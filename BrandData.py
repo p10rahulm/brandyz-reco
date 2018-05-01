@@ -63,7 +63,6 @@ if __name__ == "__main__":
     # Even though it has not been mentioned whether the data has been ordered time-stamp wise, if we assume it has been,
     # we can add a value tag - how many times has this brand been the first purchase of user
     brand_deets = AddBrandTags.first_purchase(brand_deets,shoppers, brands)
-
     print("write brand_details to file")
     WriteListtoFile.write_file('output/brand_details.txt', brand_deets)
     print("brand_deets[0:5]")
