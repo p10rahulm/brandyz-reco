@@ -47,9 +47,9 @@ if __name__ == "__main__":
     print("Add user tags to user details")
     user_deets = AddUserTags.get_percentile_tags(user_deets)
     print("write userdetails to file")
-    WritetoFile.write_list_to_file('output/user_details.txt', user_deets)
-    print("user_deets[0:5]")
-    print(user_deets[0:5])
+    WritetoFile.write_df_to_file('output/user_details.txt', user_deets)
+    print("user_deets[meta]")
+    print(user_deets["meta"])
 
     print("getting brand_wise details")
     brand_deets = BrandDetails.get_brand_purchase_deets(shoppers, brands)
@@ -65,9 +65,9 @@ if __name__ == "__main__":
     brand_deets = AddBrandTags.first_purchase(brand_deets,shoppers, brands)
 
     print("write brand_details to file")
-    WritetoFile.write_list_to_file('output/brand_details.txt', brand_deets)
-    print("brand_deets[0:5]")
-    print(brand_deets[0:5])
+    WritetoFile.write_df_to_file('output/brand_details.txt', brand_deets)
+    print("brand_deets[meta]")
+    print(brand_deets["meta"])
 
 
     print("get_copurchase list")

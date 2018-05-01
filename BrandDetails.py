@@ -40,7 +40,11 @@ def get_brand_purchase_deets(shoppers,brands):
     brand_deets["brand_code"] = np.array(brands_list,dtype=np.int32)
     brand_deets["num_transactions"] = np.array(num_transactions_list,dtype=np.int32)
     brand_deets["list_of_users"] = list_of_users
-    brand_deets["meta"] = {"size":len(num_transactions_list)}
+    brand_deets["meta"] = {"size":len(num_transactions_list),
+                           "num_columns": 3,
+                          "column_type_list": [("brand_code",np.int32),
+                                               ("num_transactions",np.int32),
+                                               ("list_of_users",list)]}
     return brand_deets
 
 # Below was using list of tuples for storage, now going to convert to dictionary of np.arrays or lists. This could be more R or database style.

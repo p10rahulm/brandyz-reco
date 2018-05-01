@@ -42,7 +42,13 @@ def get_user_purchase_deets(shoppers,brands):
     user_deets["start_row"] = np.array(start_row_list, dtype=np.int32)
     user_deets["end_row"] = np.array(end_row_list, dtype=np.int32)
     user_deets["list_of_transactions"] = list_of_transactions
-    user_deets["meta"] = {"size": len(num_transactions_list)}
+    user_deets["meta"] = {"size": len(num_transactions_list),
+                          "num_columns": 5,
+                          "column_type_list": [("user_id",np.int),
+                                               ("num_transactions",np.int16),
+                                               ("start_row",np.int32),
+                                               ("end_row",np.int32),
+                                               ("list_of_transactions",list)]}
 
     return user_deets
 

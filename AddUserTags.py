@@ -3,12 +3,14 @@
 # For now only going with a single performance based metric - percentile.
 
 import PercentileTags,UserDetails
-
+import numpy as np
 
 def get_percentile_tags(user_dataframe):
     userwise_num_purchases =user_dataframe["num_transactions"]
     percentile_tags = PercentileTags.get_percentiles(userwise_num_purchases)
     user_dataframe["percentile_tag"] = percentile_tags
+    user_dataframe["meta"]["num_columns"] += 1
+    user_dataframe["meta"]["column_type_list"].append(("percentile_tag",np.int8))
     return user_dataframe
 
 
