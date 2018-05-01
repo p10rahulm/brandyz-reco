@@ -2,7 +2,6 @@
 
 
 import numpy as np,re
-import WritetoFile
 
 def read_simple_db(db_filename):
     db_txt = open(db_filename, 'r')
@@ -57,9 +56,16 @@ def read_simple_db(db_filename):
                 db[col_names[j]][i] = []
                 for k in range(len(list_values)):
                     db[col_names[j]][i].append(list_values[k])
-    WritetoFile.write_df_to_file("output/df_reader_test.txt",db)
+    return db
+
 
 
 
 if __name__ =="__main__":
-    read_simple_db("output/brand_details.txt")
+    db = read_simple_db("output/brand_details.txt")
+    import WritetoFile
+    WritetoFile.write_df_to_file("output/df_reader_test.txt", db)
+
+    db = read_simple_db("output/user_details.txt")
+    import WritetoFile
+    WritetoFile.write_df_to_file("output/df_reader_test_user.txt", db)

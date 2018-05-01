@@ -46,7 +46,7 @@ if __name__ == "__main__":
     shopper_brand_matrix = UserBrandPurchaseMatrix.get_user_purchase_matrix(shoppers, num_uniq_shoppers, brands, num_uniq_brands)
     print("sparse purchase matrix obtained: first row below:- ")
     print(shopper_brand_matrix[0])
-    
+    '''
     
     print("getting user_wise details")
     user_deets = UserDetails.get_user_purchase_deets(shoppers, brands)
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     WritetoFile.write_df_to_file('output/user_details.txt', user_deets)
     print("user_deets[meta]")
     print(user_deets["meta"])
-    '''
+
 
     print("getting brand_wise details")
     brand_deets = BrandDetails.get_brand_purchase_deets(shoppers, brands)
