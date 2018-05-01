@@ -1,4 +1,4 @@
-import Openfile,ConverttoFactor,WriteListtoFile,UserBrandPurchaseMatrix,ProductCopurchase,UserDetails, BrandDetails,AddBrandTags,AddUserTags
+import Openfile,ConverttoFactor,WritetoFile,UserBrandPurchaseMatrix,ProductCopurchase,UserDetails, BrandDetails,AddBrandTags,AddUserTags
 import numpy as np
 import time
 
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     print("Add user tags to user details")
     user_deets = AddUserTags.get_percentile_tags(user_deets)
     print("write userdetails to file")
-    WriteListtoFile.write_file('output/user_details.txt',user_deets)
+    WritetoFile.write_list_to_file('output/user_details.txt', user_deets)
     print("user_deets[0:5]")
     print(user_deets[0:5])
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     brand_deets = AddBrandTags.first_purchase(brand_deets,shoppers, brands)
 
     print("write brand_details to file")
-    WriteListtoFile.write_file('output/brand_details.txt', brand_deets)
+    WritetoFile.write_list_to_file('output/brand_details.txt', brand_deets)
     print("brand_deets[0:5]")
     print(brand_deets[0:5])
 

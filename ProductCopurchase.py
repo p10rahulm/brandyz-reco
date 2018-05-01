@@ -2,13 +2,13 @@ import numpy as np
 
 def get_copurchase_list(user_details):
     copurchase_list = []
-    for user in user_details:
-        purchases = user[5]
+    transactions = user_details["list_of_transactions"]
+    for user_purchases in transactions:
         i=0
-        while i < len(purchases):
+        while i < len(user_purchases):
             j =i+1
-            while j<len(purchases):
-                copurchase_list.append((purchases[i],purchases[j]))
+            while j<len(user_purchases):
+                copurchase_list.append((user_purchases[i],user_purchases[j]))
                 j+=1
             i+=1
     return(copurchase_list)
