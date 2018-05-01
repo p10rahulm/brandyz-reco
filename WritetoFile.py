@@ -38,3 +38,10 @@ if __name__== "__main__":
     import UserDetails
     user_details = UserDetails.get_user_purchase_deets(customers, purchases)
     write_df_to_file("output/writedf_test.txt",user_details)
+    import BrandDetails,AddBrandTags
+    brand_details = BrandDetails.get_brand_purchase_deets(customers, purchases)
+    brand_details = AddBrandTags.add_random_categories(brand_details)
+    brand_details = AddBrandTags.add_random_ordinal_scale(brand_details)
+    brand_details = AddBrandTags.get_percentile_tags(brand_details)
+    brand_details = AddBrandTags.first_purchase(brand_details,customers,purchases)
+    write_df_to_file("output/writebrand_df_test.txt", brand_details)
