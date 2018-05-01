@@ -25,39 +25,58 @@
 # (iv) FirstPurchase:
 #       Here we will input the number of times this product has been the first purchase of the user.
 #
-
+import BrandDetails
 import random,numpy as np
 import PercentileTags
 
+
+def add_names(brand_dataframe,code_name_dictionary):
+    num_elements = brand_dataframe["meta"]["size"]
+    brand_codes = brand_dataframe["brand_code"]
+    names = np.empty(num_elements, dtype='U20')
+    for i in range(num_elements):
+        brand_code = brand_codes[i]
+        names[i] = code_name_dictionary[brand_code]
+    brand_dataframe["brand_name"] = names
+    brand_dataframe["meta"]["num_columns"] += 1
+    brand_dataframe["meta"]["column_type_list"].append(("brand_name", 'U20'))
+    return brand_dataframe
+
+
+
+
 def add_random_categories(brand_dataframe):
-    out =[]
-    for i in range(len(brand_dataframe)):
-        rand_cat = random.randint(0,3)
-        out.append((brand_dataframe[i][0],brand_dataframe[i][1],rand_cat,brand_dataframe[i][2]))
-    return out
+    num_elements = brand_dataframe["meta"]["size"]
+    category_list = np.zeros(num_elements,dtype=np.int8)
+    for i in range(num_elements):
+        category_list[i] = random.randint(0,4)
+    brand_dataframe["category"] = category_list
+    brand_dataframe["meta"]["num_columns"] += 1
+    brand_dataframe["meta"]["column_type_list"].append(("category", 'int8'))
+    return brand_dataframe
 
 
 def add_random_ordinal_scale(brand_dataframe):
-    out =[]
-    for i in range(len(brand_dataframe)):
-        rand_scale = random.randint(0,4)
-        out.append((brand_dataframe[i][0],brand_dataframe[i][1],brand_dataframe[i][2],rand_scale,brand_dataframe[i][3]))
-    return out
+    num_elements = brand_dataframe["meta"]["size"]
+    ordinal_list = np.zeros(num_elements, dtype=np.int8)
+    for i in range(num_elements):
+        ordinal_list[i] = random.randint(0, 4)
+    brand_dataframe["ordinal_scale"] = ordinal_list
+    brand_dataframe["meta"]["num_columns"] += 1
+    brand_dataframe["meta"]["column_type_list"].append(("ordinal_scale", 'int8'))
+    return brand_dataframe
 
 
 def get_percentile_tags(brand_dataframe):
-    num_brands=len(brand_dataframe)
-    brandwise_num_purchases =np.zeros((num_brands,1),dtype = np.int32)
-    for i in range(num_brands):
-        brandwise_num_purchases[i] = brand_dataframe[i][1]
+    brandwise_num_purchases = brand_dataframe["num_transactions"]
     percentile_tags = PercentileTags.get_percentiles(brandwise_num_purchases)
-    out = []
-    for i in range(len(brand_dataframe)):
-        out.append((brand_dataframe[i][0], brand_dataframe[i][1], brand_dataframe[i][2], brand_dataframe[i][3], percentile_tags[i], brand_dataframe[i][4]))
-    return out
+    brand_dataframe["percentile_tag"] = percentile_tags
+    brand_dataframe["meta"]["num_columns"] += 1
+    brand_dataframe["meta"]["column_type_list"].append(("percentile_tag", 'int8'))
+    return brand_dataframe
 
 def first_purchase(brand_dataframe,shoppers,brands):
-    num_brands=len(brand_dataframe)
+    num_brands = brand_dataframe["meta"]["size"]
     brandwise_first_purchases =np.zeros(num_brands,dtype = np.int32)
     # Using the first row as special case
     brandwise_first_purchases[brands[0]] += 1
@@ -65,8 +84,17 @@ def first_purchase(brand_dataframe,shoppers,brands):
     for i  in range(1,len(shoppers)):
         if(shoppers[i]!=shoppers[i-1]):
             brandwise_first_purchases[brands[i]]+=1
-    # since tuples cannot be changed (appended to), we need to do this additional step
-    out = []
-    for i in range(len(brand_dataframe)):
-        out.append((brand_dataframe[i][0], brand_dataframe[i][1], brand_dataframe[i][2], brand_dataframe[i][3], brand_dataframe[i][4], brandwise_first_purchases[i], brand_dataframe[i][5]))
-    return out
+    brand_dataframe["first_purchases"] = brandwise_first_purchases
+    brand_dataframe["meta"]["num_columns"]+=1
+    brand_dataframe["meta"]["column_type_list"].append(("first_purchases", 'int32'))
+    return brand_dataframe
+
+if __name__== "__main__":
+    customers = [0,0,1,1,1,2,2,2,2]
+    purchases = [0,3,5,1,2,4,1,3,5]
+    brand_df = BrandDetails.get_brand_purchase_deets(customers, purchases)
+    brand_df = add_random_categories(brand_df)
+    brand_df = add_random_ordinal_scale(brand_df)
+    brand_df = get_percentile_tags(brand_df)
+    brand_df = first_purchase(brand_df,customers,purchases)
+    print(brand_df)
