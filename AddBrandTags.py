@@ -32,7 +32,7 @@ import PercentileTags
 def add_random_categories(brand_dataframe):
     out =[]
     for i in range(len(brand_dataframe)):
-        rand_cat = random.randint(0,3)
+        rand_cat = random.randint(0,4)
         out.append((brand_dataframe[i][0],brand_dataframe[i][1],rand_cat,brand_dataframe[i][2]))
     return out
 

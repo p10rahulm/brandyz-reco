@@ -69,6 +69,7 @@ if __name__ == "__main__":
     print("brand_deets[0:5]")
     print(brand_deets[0:5])
 
+
     print("get_copurchase list")
     copurchase_list = ProductCopurchase.get_copurchase_list(user_deets)
     print("len(copurchase_list)=",len(copurchase_list))
