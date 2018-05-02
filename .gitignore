@@ -4,7 +4,8 @@
 # data
 data/brands_filtered.txt
 output/*
-__pycache__
+!output/data/
+__pycache__/
 
 # User-specific stuff
 .idea/**/workspace.xml
