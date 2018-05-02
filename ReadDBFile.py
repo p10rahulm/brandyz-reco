@@ -7,7 +7,6 @@ def read_simple_db(db_filename):
     db_txt = open(db_filename, 'r')
     rows = int(db_txt.readline().split(": ")[1])
     columns = int(db_txt.readline().split(": ")[1])
-    print(rows,columns)
     # Let one line go
     db_txt.readline()
     # initialize column_names and column_classes
@@ -64,8 +63,8 @@ def read_simple_db(db_filename):
 if __name__ =="__main__":
     db = read_simple_db("output/brand_details.txt")
     import WritetoFile
-    WritetoFile.write_df_to_file("output/df_reader_test.txt", db)
+    WritetoFile.write_df_to_file("output/test/df_reader_test.txt", db)
 
     db = read_simple_db("output/user_details.txt")
     import WritetoFile
-    WritetoFile.write_df_to_file("output/df_reader_test_user.txt", db)
+    WritetoFile.write_df_to_file("output/test/df_reader_test_user.txt", db)
