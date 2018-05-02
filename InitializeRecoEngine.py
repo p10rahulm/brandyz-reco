@@ -146,7 +146,7 @@ def get_intermediate_files_from_raw_data_timed(filename):
 
 if __name__ == "__main__":
     start_time = time.time()
-    get_intermediate_files_from_raw_data("data/brands_filtered.txt")
+    get_intermediate_files_from_raw_data_timed("data/brands_filtered.txt")
     print("Finished initiation run. Total time taken : ",time.time() - start_time)
 
 

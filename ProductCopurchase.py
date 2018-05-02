@@ -129,7 +129,7 @@ if __name__== "__main__":
     copurchase_list = ProductCopurchase.get_copurchase_list(user_deets)
     print("Got copurchase list. Time taken = ", time.time() - timestart)
     copurchase_matrix = ProductCopurchase.get_product_co_purchase_matrix_from_list(copurchase_list,brand_df["meta"]["size"])
-    print("Got copurchase matrix. Time taken = ", time.time() - timestart)
+    print("Got copurchase matrix from list. Time taken = ", time.time() - timestart)
     copurchase_dictionary = ProductCopurchase.get_copurchase_dictionary(user_deets)
     print("Got copurchase dict. Time taken = ", time.time() - timestart)
     print("len(copurchase_doct)= ", end="")
