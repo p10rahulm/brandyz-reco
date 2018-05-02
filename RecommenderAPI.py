@@ -75,7 +75,7 @@ def reco_copurchase_prob_maximize(brand_df, copurchase_matrix, product_id, code_
 
 
 def reco_conditional_prob_userid(brand_df, user_df,copurchase_matrix, code_to_name_dict, userid_code_dict,user_id):
-    # print("recos based on user id")
+    print("recos based on user id")
     try:
         user_code = userid_code_dict[user_id]
     except:

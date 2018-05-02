@@ -78,14 +78,35 @@ def get_product_recommendations(choice,brand_df,copurchase_matrix,code_to_name_d
                 if (i != len(recolist) - 1):
                     print(",", end="")
 
+
+def get_product_recommendations_by_userid(choice,brand_df,user_df,copurchase_matrix,code_to_name_dict,userid_to_code_dict):
+    user_id = input("Please enter a user id: ")
+    try:
+        user_id = int(user_id)
+    except:
+        print("Please enter valid user id. We couldn't find any user with id: ", user_id)
+        return
+    if(choice == 8):
+        recolist = RecommenderAPI.reco_conditional_prob_userid(brand_df, user_df,copurchase_matrix, code_to_name_dict, userid_to_code_dict,user_id)
+        if(recolist!=""):
+            print("\nThe recommendations for user id %d are:",user_id)
+            for i in range(len(recolist)):
+                print(recolist[i],end="")
+                if(i != len(recolist)-1):
+                    print(",",end="")
+
+
 def recommender():
     # Initialize Loads
     brand_df = ReadDBFile.read_simple_db("output/brand_details.txt")
+    user_df = ReadDBFile.read_simple_db("output/user_details.txt")
     copurchase_matrix = np.load("output/copurchase_matrix.npy")
     with open('output/id_to_code_dict.pkl', 'rb') as file:
         id_code_dict = pickle.loads(file.read())
     with open('output/code_to_name_dict.pkl', 'rb') as file:
         code_to_name_dict = pickle.loads(file.read())
+    with open('output/userid_to_code_dict.pkl', 'rb') as file:
+        userid_to_code_dict = pickle.loads(file.read())
 
     # Start the recommender
     exit_bool = False
@@ -112,8 +133,11 @@ def recommender():
             if (choice >= 4 and choice <= 6):
                 print("in second")
                 get_product_recommendations(choice, brand_df, copurchase_matrix, code_to_name_dict,id_code_dict)
+            if (choice ==8):
+                print("in fourth")
+                get_product_recommendations_by_userid(choice, brand_df, user_df, copurchase_matrix, code_to_name_dict,userid_to_code_dict)
             if(choice==9):
-                print("Thank you for checking this file!")
+                print("Thank you for viewing us!")
                 exit_bool = True
             else: wrongchoice = True
         if wrongchoice:

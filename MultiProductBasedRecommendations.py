@@ -58,3 +58,4 @@ def conditional_probability_reco_from_list(brand_df, copurchase_matrix, product_
     codes = np.arange(len(copurchase_matrix))
     top_10_copurchases = [code_to_name_dict[item[1]] for item in sorted(zip(overall_copurch_sum,codes),reverse=True)[0:10]]
     return (top_10_copurchases)
+
