@@ -8,6 +8,8 @@
 # 6) Get recommendation based on list of products
 
 import ReadDBFile,Mergesort
+import numpy as np
+import pickle
 
 
 # Ok first recommendations for new user
@@ -48,10 +50,27 @@ def reco_showcase(brand_df):
 
 # Get recommendation based on product: Here we will use just the most
 def product_based_reco(brand_df,product_id):
-    return
+    copurchase_matrix = np.load("output/copurchase_matrix.txt.npy")
+    with open('output/id_to_code_dict.pkl', 'rb') as file:
+        id_code_dict = pickle.loads(file.read())
+    with open('output/code_to_name_dict.pkl', 'rb') as file:
+        code_to_name = pickle.loads(file.read())
+    print("loaded")
+    try:
+        prod_code = id_code_dict[product_id]
+    except:
+        print("Please enter valid product id. We couldn't find any product with id: ",product_id)
+        return
+    prod_cop = copurchase_matrix[prod_code]
+    arrange = np.arange(len(copurchase_matrix))
+    top_10_copurchases = [code_to_name[item[1]] for item in sorted(zip(prod_cop,arrange),reverse=True)[0:10]]
+    print(top_10_copurchases)
+
+
 
 if __name__ == "__main__":
     brand_df = ReadDBFile.read_simple_db("output/brand_details.txt")
     print(reco_new_user(brand_df))
     print(reco_alltime_best(brand_df))
     print(reco_showcase(brand_df))
+    product_based_reco(brand_df,51)
