@@ -49,8 +49,8 @@
 #       Note that here, B need not be the largest
 
 
-import numpy as np
-
+import numpy as np,pickle
+import ReadDBFile
 
 # Get recommendation based on product: This is based on (1) above
 def conditional_probability_reco(brand_df, copurchase_matrix, product_code, code_to_name_dict):
@@ -94,3 +94,20 @@ def maximal_cooccurance_reco(brand_df, copurchase_matrix, product_code, code_to_
     codes = np.arange(len(copurchase_matrix))
     top_10_copurchases = [code_to_name_dict[item[1]] for item in sorted(zip(prod_copurchase_probability,codes),reverse=True)[0:10]]
     return (top_10_copurchases)
+
+
+if __name__=="__main__":
+    brand_df = ReadDBFile.read_simple_db("output/brand_details.txt")
+    # user_df = ReadDBFile.read_simple_db("output/user_details.txt")
+
+    # Load some stuff before the remaining three
+    copurchase_matrix = np.load("output/copurchase_matrix.npy")
+    with open('output/id_to_code_dict.pkl', 'rb') as file:
+        id_code_dict = pickle.loads(file.read())
+    with open('output/code_to_name_dict.pkl', 'rb') as file:
+        code_to_name_dict = pickle.loads(file.read())
+    with open('output/userid_to_code_dict.pkl', 'rb') as file:
+        userid_to_code_dict = pickle.loads(file.read())
+    print(conditional_probability_reco(brand_df, copurchase_matrix, id_code_dict[51], code_to_name_dict))
+    print(purchase_prob_maximization_reco(brand_df, copurchase_matrix, id_code_dict[51], code_to_name_dict))
+    print(maximal_cooccurance_reco(brand_df, copurchase_matrix, id_code_dict[51], code_to_name_dict,10))

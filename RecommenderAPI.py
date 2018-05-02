@@ -91,7 +91,7 @@ def reco_conditional_prob_userid(brand_df, user_df,copurchase_matrix, code_to_na
         print("Please enter valid product id. We couldn't find any product with id: ",user_id)
         return("")
     product_list = user_df["list_of_transactions"][user_code]
-    return(MultiProductBasedRecommendations.conditional_probability_reco_from_list(brand_df, copurchase_matrix, product_list, code_to_name_dict))
+    return(MultiProductBasedRecommendations.cp_reco_from_list(brand_df, copurchase_matrix, product_list, code_to_name_dict))
 
 
 if __name__ == "__main__":

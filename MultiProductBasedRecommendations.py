@@ -43,11 +43,12 @@
 #       a fairly robust answer
 #
 
-import numpy as np
+import numpy as np,pickle
+import ReadDBFile
 
 
 # Get recommendation based on product: This is based on (1) above
-def conditional_probability_reco_from_list(brand_df, copurchase_matrix, product_code_list, code_to_name_dict):
+def cp_reco_from_list(brand_df, copurchase_matrix, product_code_list, code_to_name_dict):
     overall_copurch_sum = np.zeros(brand_df["meta"]["size"],dtype = np.float)
     for product_code in product_code_list:
         num_transactions = brand_df["num_transactions"][product_code]
@@ -59,3 +60,17 @@ def conditional_probability_reco_from_list(brand_df, copurchase_matrix, product_
     top_10_copurchases = [code_to_name_dict[item[1]] for item in sorted(zip(overall_copurch_sum,codes),reverse=True)[0:10]]
     return (top_10_copurchases)
 
+if __name__=="__main__":
+    brand_df = ReadDBFile.read_simple_db("output/brand_details.txt")
+    # user_df = ReadDBFile.read_simple_db("output/user_details.txt")
+
+    # Load some stuff before the remaining three
+    copurchase_matrix = np.load("output/copurchase_matrix.npy")
+    with open('output/id_to_code_dict.pkl', 'rb') as file:
+        id_code_dict = pickle.loads(file.read())
+    with open('output/code_to_name_dict.pkl', 'rb') as file:
+        code_to_name_dict = pickle.loads(file.read())
+    with open('output/userid_to_code_dict.pkl', 'rb') as file:
+        userid_to_code_dict = pickle.loads(file.read())
+    print(cp_reco_from_list(brand_df,copurchase_matrix,
+                           [id_code_dict[51],id_code_dict[379],id_code_dict[552],id_code_dict[2333]],code_to_name_dict))

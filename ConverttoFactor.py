@@ -28,7 +28,7 @@ if __name__ == "__main__":
     (new_col,encoded_dict,num_unique) = convert_to_factor(a)
     print(new_col, " ",num_unique)
     print(encoded_dict)
-    a = ["hi", "hello", "my", "name", "is", "Rahul", "hi"]
+    a = ["hi", "hello", "my", "name", "is", "Zorro", "hi"]
     (new_col, encoded_dict, num_unique) = convert_to_factor(a)
     print(new_col, " ", num_unique)
     print(encoded_dict)

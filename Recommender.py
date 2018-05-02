@@ -86,14 +86,13 @@ def get_product_recommendations_by_userid(choice,brand_df,user_df,copurchase_mat
     except:
         print("Please enter valid user id. We couldn't find any user with id: ", user_id)
         return
-    if(choice == 8):
-        recolist = RecommenderAPI.reco_conditional_prob_userid(brand_df, user_df,copurchase_matrix, code_to_name_dict, userid_to_code_dict,user_id)
-        if(recolist!=""):
-            print("\nThe recommendations for user id ",user_id," are:")
-            for i in range(len(recolist)):
-                print(recolist[i],end="")
-                if(i != len(recolist)-1):
-                    print(",",end="")
+    recolist = RecommenderAPI.reco_conditional_prob_userid(brand_df, user_df,copurchase_matrix, code_to_name_dict, userid_to_code_dict,user_id)
+    if(recolist!=""):
+        print("\nThe recommendations for user id ",user_id," are:")
+        for i in range(len(recolist)):
+            print(recolist[i],end="")
+            if(i != len(recolist)-1):
+                print(",",end="")
 
 
 def get_recommendations_from_product_list(choice,brand_df,copurchase_matrix,code_to_name_dict,id_code_dict):
@@ -115,7 +114,7 @@ def get_recommendations_from_product_list(choice,brand_df,copurchase_matrix,code
         print("Please enter atleast one product")
         return
 
-    recolist = MultiProductBasedRecommendations.conditional_probability_reco_from_list(brand_df, copurchase_matrix, product_list, code_to_name_dict)
+    recolist = MultiProductBasedRecommendations.cp_reco_from_list(brand_df, copurchase_matrix, product_list, code_to_name_dict)
     if(recolist!=""):
         print("\nThe recommendations based on your product list are:")
         for i in range(len(recolist)):

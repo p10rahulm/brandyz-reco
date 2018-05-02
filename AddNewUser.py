@@ -36,4 +36,4 @@ def add_last_line(users_db_filename,df_size):
 
 
 if __name__== "__main__":
-    add_new_user("output/writedf_test.txt")
+    add_new_user("output/test/writedf_test.txt")
