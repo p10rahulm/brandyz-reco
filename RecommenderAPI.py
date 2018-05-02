@@ -63,8 +63,15 @@ def product_based_reco(brand_df,product_id):
         return
     prod_cop = copurchase_matrix[prod_code]
     arrange = np.arange(len(copurchase_matrix))
-    top_10_copurchases = [code_to_name[item[1]] for item in sorted(zip(prod_cop,arrange),reverse=True)[0:10]]
-    print(top_10_copurchases)
+    copurchase_ids = [item[1] for item in sorted(zip(prod_cop,arrange),reverse=True)[0:10]]
+    # Recommend current product also if product purchases is greater than the least of the num_purchases of the rest 10.
+    purchases_number = sorted([brand_df["num_transactions"][id] for id in copurchase_ids])
+    current_prodid_number_transactions = brand_df["num_transactions"][prod_code]
+    if(current_prodid_number_transactions>=purchases_number[0]):
+        top_10_copurchases = [code_to_name[prod_code]]+[code_to_name[item] for item in copurchase_ids[0:9]]
+    else:
+        top_10_copurchases = [code_to_name[item] for item in copurchase_ids]
+    return top_10_copurchases
 
 
 
@@ -73,4 +80,4 @@ if __name__ == "__main__":
     print(reco_new_user(brand_df))
     print(reco_alltime_best(brand_df))
     print(reco_showcase(brand_df))
-    product_based_reco(brand_df,51)
+    print(product_based_reco(brand_df,51))
