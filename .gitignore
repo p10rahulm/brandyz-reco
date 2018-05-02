@@ -4,7 +4,9 @@
 # data
 data/brands_filtered.txt
 output/*
-!output/data/
+!output/.gitkeep
+test/*
+!test/.gitkeep
 __pycache__/
 
 # User-specific stuff
