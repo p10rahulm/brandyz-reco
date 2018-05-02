@@ -31,7 +31,8 @@ def get_intermediate_files_from_raw_data(filename):
         pickle.dump(brand_code_name_dictionary, file)
     with open('output/id_to_code_dict.pkl', 'wb') as file:
         pickle.dump(brand_id_code_dictionary, file)
-
+    with open('output/userid_to_code_dict.pkl', 'wb') as file:
+        pickle.dump(shopper_code_dictionary, file)
     # Get user wise details
     user_deets = UserDetails.get_user_purchase_deets(shoppers, brands)
     user_deets = AddUserTags.get_percentile_tags(user_deets)
@@ -81,6 +82,8 @@ def get_intermediate_files_from_raw_data_timed(filename):
         pickle.dump(brand_code_name_dictionary, file)
     with open('output/id_to_code_dict.pkl', 'wb') as file:
         pickle.dump(brand_id_code_dictionary, file)
+    with open('output/userid_to_code_dict.pkl', 'wb') as file:
+        pickle.dump(shopper_code_dictionary, file)
     print("Created and saved reverse dictionaries. Time taken = ", time.time() - timestart)
 
     # print("brand_code_id_mapping[38] : ", brand_code_id_dictionary[38])
