@@ -1,0 +1,17 @@
+size: 6
+columns: 7
+--columns--
+brand_code,int32
+num_transactions,int32
+list_of_users,list
+category,int8
+ordinal_scale,int8
+percentile_tag,int8
+first_purchases,int32
+--data--
+0,1,[0],0,1,1,1
+1,2,[1, 2],2,2,5,0
+2,1,[1],4,4,1,0
+3,2,[0, 2],2,2,5,0
+4,1,[2],0,1,1,1
+5,2,[1, 2],1,4,5,1
