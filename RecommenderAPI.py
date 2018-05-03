@@ -62,16 +62,16 @@ def reco_ppm(brand_df, copurchase_matrix, product_id, code_to_name_dict,id_code_
     except:
         print("Please enter valid product id. We couldn't find any product with id: ",product_id)
         return ""
-    prod_cop = copurchase_matrix[prod_code]
+    prod_copurchase_array = copurchase_matrix[product_code]
     arrange = np.arange(len(copurchase_matrix))
-    copurchase_ids = [item[1] for item in sorted(zip(prod_cop,arrange),reverse=True)[0:10]]
+    copurchase_ids = [item[1] for item in sorted(zip(prod_copurchase_array,arrange),reverse=True)[0:10]]
     # Recommend current product also if product purchases is greater than the least of the num_purchases of the rest 10.
     purchases_number = sorted([brand_df["num_transactions"][id] for id in copurchase_ids])
-    current_prodid_number_transactions = brand_df["num_transactions"][prod_code]
+    current_prodid_number_transactions = brand_df["num_transactions"][product_code]
     if(current_prodid_number_transactions>=purchases_number[0]):
-        top_10_copurchases = [code_to_name[prod_code]]+[code_to_name[item] for item in copurchase_ids[0:9]]
+        top_10_copurchases = [code_to_name_dict[product_code]]+[code_to_name_dict[item] for item in copurchase_ids[0:9]]
     else:
-        top_10_copurchases = [code_to_name[item] for item in copurchase_ids]
+        top_10_copurchases = [code_to_name_dict[item] for item in copurchase_ids]
     return top_10_copurchases
 
 
