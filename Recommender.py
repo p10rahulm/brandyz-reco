@@ -15,7 +15,7 @@
 # 8) Get user based recommendations
 #       Enter user id, then products purchased are retrieved
 
-import ReadDBFile,RecommenderAPI,MultiProductBasedRecommendations
+import ReadDBFile,RecommenderAPI,MultiProductRecos
 import numpy as np,pickle
 
 
@@ -114,7 +114,7 @@ def get_recommendations_from_product_list(choice,brand_df,copurchase_matrix,code
         print("Please enter atleast one product")
         return
 
-    recolist = MultiProductBasedRecommendations.cp_reco_from_list(brand_df, copurchase_matrix, product_list, code_to_name_dict)
+    recolist = MultiProductRecos.cp_reco_from_list(brand_df, copurchase_matrix, product_list, code_to_name_dict)
     if(recolist!=""):
         print("\nThe recommendations based on your product list are:")
         for i in range(len(recolist)):
