@@ -30,4 +30,4 @@ def add_last_line(brand_db_filename,brand_category,brand_scale,df_size):
 
 
 if __name__== "__main__":
-    add_new_brand("output/test/writebrand_df_test.txt",0,2)
+    add_new_brand("test/writebrand_df_test.txt",0,2)

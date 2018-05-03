@@ -110,8 +110,7 @@ if __name__ == "__main__":
     print(reco_new_user(brand_df))
     print(reco_alltime_best(brand_df))
     print(reco_showcase(brand_df))
-    print(product_based_reco(brand_df,51))
-
+    
     # The below is a simple conditional probability based recommender
     print(reco_cp(brand_df, copurchase_matrix, 51, code_to_name_dict,id_code_dict))
     # Just to check that for a random product code, the solution is still robust. It still works

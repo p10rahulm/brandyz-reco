@@ -7,6 +7,7 @@ output/*
 !output/.gitkeep
 test/*
 !test/.gitkeep
+!test/some_sed_test.txt
 __pycache__/
 
 # User-specific stuff

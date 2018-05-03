@@ -23,6 +23,6 @@ def replace_line_number(filename,linenumber,newline_string):
 
 if __name__=="__main__":
     print(tail("SedOperations.py",1))
-    with open("output/test/some_sed_test.txt") as f:
+    with open("test/some_sed_test.txt") as f:
         new_first_line = str(int(f.readline())+1)
-    replace_line_number("output/test/some_sed_test.txt",1,new_first_line)
+    replace_line_number("test/some_sed_test.txt",1,new_first_line)

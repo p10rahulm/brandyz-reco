@@ -63,8 +63,8 @@ def read_simple_db(db_filename):
 if __name__ =="__main__":
     db = read_simple_db("output/brand_details.txt")
     import WritetoFile
-    WritetoFile.write_df_to_file("output/test/df_reader_test.txt", db)
+    WritetoFile.write_df_to_file("test/df_reader_test.txt", db)
 
     db = read_simple_db("output/user_details.txt")
     import WritetoFile
-    WritetoFile.write_df_to_file("output/test/df_reader_test_user.txt", db)
+    WritetoFile.write_df_to_file("test/df_reader_test_user.txt", db)
